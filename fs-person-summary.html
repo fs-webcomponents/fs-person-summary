@@ -1,0 +1,163 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../fs-client/fs-client.html">
+<link rel="import" href="../fs-behavior/fs-behavior.html">
+<link rel="import" href="../fs-person-portrait/fs-person-portrait.html">
+
+<!--
+A FamilySearch person summary.
+
+Basic example:
+
+    <fs-person-summary person-id="PPP-PPPP"></fs-person-summary>
+
+@group FamilySearch Elements
+@element fs-person-summary
+@demo demo/index.html
+-->
+<dom-module id="fs-person-summary">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: row;
+        font-family: arial;
+        --paper-spinner-layer-1-color: var(--paper-grey-400);
+        --paper-spinner-layer-2-color: var(--paper-grey-400);
+        --paper-spinner-layer-3-color: var(--paper-grey-400);
+        --paper-spinner-layer-4-color: var(--paper-grey-400);
+        position: relative;
+        min-height: 100px;
+      }
+      
+      #spinner {
+        position: absolute;
+        left: 50%;
+        top: 40px;
+      }
+      
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      
+      fs-person-portrait {
+        margin-right: 16px;
+        --fs-person-portrait-size: var(--fs-person-summary-portrait-size, 75px);
+        --fs-person-portrait-border-radius: var(--fs-person-summary-portrait-border-radius, 0);
+      }
+      
+      .vital {
+        margin-top: 8px;
+      }
+      
+      .label {
+        font-size: smaller;
+        text-transform: uppercase;
+      }
+    </style>
+    <fs-client name="{{clientName}}" on-authenticated-changed="_authenticatedChanged"></fs-client>
+    <fs-person-portrait id="portrait"></fs-person-portrait>
+    <div class="body">
+      <paper-spinner id="spinner" alt="Loading person details"></paper-spinner>
+      <div class="name"></div>
+      <div class="pid"></div>
+      <div class="vital birth">
+        <div class="label">Birth</div>
+        <div class="date"></div>
+        <div class="place"></div>
+      </div>
+      <div class="vital death">
+        <div class="label">Death</div>
+        <div class="date"></div>
+        <div class="place"></div>
+      </div>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'fs-person-summary',
+
+    properties: {
+
+      /**
+       * Person ID
+       *
+       * @type String
+       */
+      personId: {
+        type: String,
+        notify: true,
+        observer: '_idChanged',
+        reflectToAttribute: true
+      },
+      
+      /**
+       * Person
+       * 
+       * @type Object
+       */
+      person: {
+        type: Object,
+        notify: true,
+        observer: '_personChanged'
+      },
+      
+      _requested: {
+        type: Boolean,
+        readOnly: true
+      }
+
+    },
+    
+    behaviors: [FSBehavior],
+    
+    attached: function() {
+      this.loadPerson();
+    },
+    
+    loadPerson: function(){
+      var self = this;
+      if(!this._requested && this.isAuthenticated() && this.personId){
+        this.$.spinner.active = true;
+        this._set_requested(true);
+        this.getClient().getPerson(this.personId).then(function(response){
+          self.person = response.getPerson();
+        });
+      }
+    },
+    
+    _authenticatedChanged: function(event){
+      if(event.detail.value){
+        this.loadPerson();
+      }
+    },
+    
+    _idChanged: function(){
+      this.loadPerson();
+    },
+    
+    _personChanged: function(person){
+      this.$.portrait.person = person;
+      this.$.portrait.gender = person.getDisplayGender();
+      this.$$('.name').textContent = person.getDisplayName();
+      this.$$('.pid').textContent = person.getId();
+      this.$$('.birth .date').textContent = person.getDisplayBirthDate();
+      this.$$('.birth .place').textContent = person.getDisplayBirthPlace();
+      this.$$('.death .date').textContent = person.getDisplayDeathDate();
+      this.$$('.death .place').textContent = person.getDisplayDeathPlace();
+      this.$.spinner.active = false;
+    }
+    
+  });
+
+</script>
