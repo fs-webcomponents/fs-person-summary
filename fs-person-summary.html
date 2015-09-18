@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../fs-client/fs-client.html">
-<link rel="import" href="../fs-behavior/fs-behavior.html">
+<link rel="import" href="../fs-person-behavior/fs-person-behavior.html">
 <link rel="import" href="../fs-person-portrait/fs-person-portrait.html">
 
 <!--
@@ -88,65 +88,8 @@ You may use any of the `fs-person-portrait` custom style properties to style the
   Polymer({
 
     is: 'fs-person-summary',
-
-    properties: {
-
-      /**
-       * Person ID
-       *
-       * @type String
-       */
-      personId: {
-        type: String,
-        notify: true,
-        observer: '_idChanged',
-        reflectToAttribute: true
-      },
-      
-      /**
-       * Person
-       * 
-       * @type Object
-       */
-      person: {
-        type: Object,
-        notify: true,
-        observer: '_personChanged'
-      },
-      
-      _requested: {
-        type: Boolean,
-        readOnly: true
-      }
-
-    },
     
-    behaviors: [FSBehavior],
-    
-    attached: function() {
-      this.loadPerson();
-    },
-    
-    loadPerson: function(){
-      var self = this;
-      if(!this._requested && this.isAuthenticated() && this.personId){
-        this.$.spinner.active = true;
-        this._set_requested(true);
-        this.getClient().getPerson(this.personId).then(function(response){
-          self.person = response.getPerson();
-        });
-      }
-    },
-    
-    _authenticatedChanged: function(event){
-      if(event.detail.value){
-        this.loadPerson();
-      }
-    },
-    
-    _idChanged: function(){
-      this.loadPerson();
-    },
+    behaviors: [FSPersonBehavior],
     
     _personChanged: function(person){
       this.$.portrait.person = person;
@@ -157,7 +100,6 @@ You may use any of the `fs-person-portrait` custom style properties to style the
       this.$$('.birth .place').textContent = person.getDisplayBirthPlace();
       this.$$('.death .date').textContent = person.getDisplayDeathDate();
       this.$$('.death .place').textContent = person.getDisplayDeathPlace();
-      this.$.spinner.active = false;
     }
     
   });
