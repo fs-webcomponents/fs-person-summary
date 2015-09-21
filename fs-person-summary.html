@@ -91,6 +91,10 @@ You may use any of the `fs-person-portrait` custom style properties to style the
     
     behaviors: [FSPersonBehavior],
     
+    observers: [
+      '_personChanged(person)'
+    ],
+    
     _personChanged: function(person){
       this.$.portrait.person = person;
       this.$.portrait.gender = person.getDisplayGender();
