@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../fs-client/fs-client.html">
-<link rel="import" href="../fs-person-behavior/fs-person-behavior.html">
+<link rel="import" href="../fs-person-cache/fs-person-cache.html">
 <link rel="import" href="../fs-person-portrait/fs-person-portrait.html">
 
 <!--
@@ -25,18 +25,8 @@ You may use any of the `fs-person-portrait` custom style properties to style the
         display: flex;
         flex-direction: row;
         font-family: arial;
-        --paper-spinner-layer-1-color: var(--paper-grey-400);
-        --paper-spinner-layer-2-color: var(--paper-grey-400);
-        --paper-spinner-layer-3-color: var(--paper-grey-400);
-        --paper-spinner-layer-4-color: var(--paper-grey-400);
         position: relative;
         min-height: 100px;
-      }
-      
-      #spinner {
-        position: absolute;
-        left: 50%;
-        top: 40px;
       }
       
       table {
@@ -62,10 +52,9 @@ You may use any of the `fs-person-portrait` custom style properties to style the
         text-transform: uppercase;
       }
     </style>
-    <fs-client name="{{clientName}}" on-authenticated-changed="_authenticatedChanged"></fs-client>
+    <fs-person-cache name="{{clientName}}" person-id="{{personId}}" person="{{person}}"></fs-person-cache>
     <fs-person-portrait id="portrait"></fs-person-portrait>
     <div class="body">
-      <paper-spinner id="spinner" alt="Loading person details"></paper-spinner>
       <div class="name"></div>
       <div class="pid"></div>
       <div class="vital birth">
@@ -84,16 +73,23 @@ You may use any of the `fs-person-portrait` custom style properties to style the
 </dom-module>
 
 <script>
-
   Polymer({
 
     is: 'fs-person-summary',
     
-    behaviors: [FSPersonBehavior],
-    
-    observers: [
-      '_personChanged(person)'
-    ],
+    properties: {
+      
+      personId: {
+        type: String,
+        notify: true
+      },
+      
+      person: {
+        type: Object,
+        observer: '_personChanged'
+      }
+      
+    },
     
     _personChanged: function(person){
       this.$.portrait.person = person;
@@ -107,5 +103,4 @@ You may use any of the `fs-person-portrait` custom style properties to style the
     }
     
   });
-
 </script>
