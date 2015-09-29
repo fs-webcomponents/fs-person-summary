@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../fs-client/fs-client.html">
-<link rel="import" href="../fs-person-cache/fs-person-cache.html">
+<link rel="import" href="../fs-person-behavior/fs-person-behavior.html">
 <link rel="import" href="../fs-person-portrait/fs-person-portrait.html">
 
 <!--
@@ -52,8 +52,8 @@ You may use any of the `fs-person-portrait` custom style properties to style the
         text-transform: uppercase;
       }
     </style>
-    <fs-person-cache name="{{clientName}}" person-id="{{personId}}" person="{{person}}"></fs-person-cache>
-    <fs-person-portrait id="portrait"></fs-person-portrait>
+    <fs-client client-name="[[clientName]]" on-authenticated-changed="_authenticatedChanged"></fs-client>
+    <fs-person-portrait id="portrait" client-name="[[clientName]]"></fs-person-portrait>
     <div class="body">
       <div class="name"></div>
       <div class="pid"></div>
@@ -79,17 +79,13 @@ You may use any of the `fs-person-portrait` custom style properties to style the
     
     properties: {
       
-      personId: {
-        type: String,
-        notify: true
-      },
-      
       person: {
-        type: Object,
         observer: '_personChanged'
       }
       
     },
+    
+    behaviors: [FSPersonBehavior],
     
     _personChanged: function(person){
       this.$.portrait.person = person;
