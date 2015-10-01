@@ -52,7 +52,7 @@ You may use any of the `fs-person-portrait` custom style properties to style the
         text-transform: uppercase;
       }
     </style>
-    <fs-client client-name="[[clientName]]" on-authenticated-changed="_authenticatedChanged"></fs-client>
+    <fs-client name="[[clientName]]" on-authenticated-changed="_authenticatedChanged"></fs-client>
     <fs-person-portrait id="portrait" client-name="[[clientName]]"></fs-person-portrait>
     <div class="body">
       <div class="name"></div>
@@ -81,21 +81,43 @@ You may use any of the `fs-person-portrait` custom style properties to style the
       
       person: {
         observer: '_personChanged'
+      },
+      
+      /**
+       * The name shown if a person has not been set (is loading)
+       */
+      defaultName: {
+        type: String,
+        value: 'Loading...'
       }
       
     },
     
     behaviors: [FSPersonBehavior],
     
+    ready: function(){
+      this.$$('.name').textContent = this.defaultName;
+    },
+    
     _personChanged: function(person){
-      this.$.portrait.person = person;
-      this.$.portrait.gender = person.getDisplayGender();
-      this.$$('.name').textContent = person.getDisplayName();
-      this.$$('.pid').textContent = person.getId();
-      this.$$('.birth .date').textContent = person.getDisplayBirthDate();
-      this.$$('.birth .place').textContent = person.getDisplayBirthPlace();
-      this.$$('.death .date').textContent = person.getDisplayDeathDate();
-      this.$$('.death .place').textContent = person.getDisplayDeathPlace();
+      if(person){
+        this.$.portrait.person = person;
+        this.$.portrait.gender = person.getDisplayGender();
+        this.$$('.name').textContent = person.getDisplayName();
+        this.$$('.pid').textContent = person.getId();
+        this.$$('.birth .date').textContent = person.getDisplayBirthDate();
+        this.$$('.birth .place').textContent = person.getDisplayBirthPlace();
+        this.$$('.death .date').textContent = person.getDisplayDeathDate();
+        this.$$('.death .place').textContent = person.getDisplayDeathPlace();
+      } else {
+        this.$.portrait.person = null;
+        this.$$('.name').textContent = this.defaultName;
+        this.$$('.pid').textContent = '';
+        this.$$('.birth .date').textContent = '';
+        this.$$('.birth .place').textContent = '';
+        this.$$('.death .date').textContent = '';
+        this.$$('.death .place').textContent = '';
+      }
     }
     
   });

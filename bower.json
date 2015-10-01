@@ -1,6 +1,6 @@
 {
   "name": "fs-person-summary",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "authors": [
     "Justin York"
   ],
@@ -20,8 +20,8 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
     "fs-client": "fs-webcomponents/fs-client#~0.1.9",
-    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#~0.1.8",
-    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#~0.1.2"
+    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#~0.1.10",
+    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#~0.1.5"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
