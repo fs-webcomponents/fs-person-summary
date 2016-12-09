@@ -102,13 +102,13 @@ You may use any of the `fs-person-portrait` custom style properties to style the
     _personChanged: function(person){
       if(person){
         this.$.portrait.person = person;
-        this.$.portrait.gender = person.getDisplayGender();
-        this.$$('.name').textContent = person.getDisplayName();
-        this.$$('.pid').textContent = person.getId();
-        this.$$('.birth .date').textContent = person.getDisplayBirthDate();
-        this.$$('.birth .place').textContent = person.getDisplayBirthPlace();
-        this.$$('.death .date').textContent = person.getDisplayDeathDate();
-        this.$$('.death .place').textContent = person.getDisplayDeathPlace();
+        this.$.portrait.gender = person.display.gender;
+        this.$$('.name').textContent = person.display.name;
+        this.$$('.pid').textContent = person.id;
+        this.$$('.birth .date').textContent = person.display.birthDate;
+        this.$$('.birth .place').textContent = person.display.birthPlace;
+        this.$$('.death .date').textContent = person.display.deathDate;
+        this.$$('.death .place').textContent = person.display.deathPlace;
       } else {
         this.$.portrait.person = null;
         this.$$('.name').textContent = this.defaultName;
