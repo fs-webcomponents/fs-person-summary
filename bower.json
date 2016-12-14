@@ -1,6 +1,6 @@
 {
   "name": "fs-person-summary",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "authors": [
     "Justin York"
   ],
@@ -19,14 +19,14 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "fs-client": "fs-webcomponents/fs-client#^1.0.0",
-    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#^1.0.0",
-    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#^1.0.0"
+    "fs-client": "fs-webcomponents/fs-client#^2.0.0",
+    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#^2.0.0",
+    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#^2.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "fs-signin": "fs-webcomponents/fs-signin#^1.0.0",
-    "paper-icon-button": "PolymerElements/paper-icon-button#~1.0.3",
-    "paper-card": "PolymerElements/paper-card#~1.0.4"
+    "fs-signin": "fs-webcomponents/fs-signin#^2.0.0",
+    "paper-icon-button": "PolymerElements/paper-icon-button#^1.0.3",
+    "paper-card": "PolymerElements/paper-card#^1.0.4"
   }
 }
