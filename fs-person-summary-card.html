@@ -1,0 +1,43 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../fs-person-summary/fs-person-summary.html">
+
+<!--
+A FamilySearch person summary card.
+
+Basic example:
+
+    <fs-person-summary person-id="PPP-PPPP"></fs-person-summary>
+
+@group FamilySearch Elements
+@element fs-person-summary-card
+@demo demo/index.html
+-->
+<dom-module id="fs-person-summary-card">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+    <paper-card>
+      <div class="card-content">
+        <fs-person-summary person-id="{{personId}}" person="{{person}}"></fs-person-summary>
+      </div>
+    </paper-card>
+  </template>
+
+  <script>
+    Polymer({
+  
+      is: 'fs-person-summary-card',
+      
+      properties: {
+        person: Object,
+        personId: String
+      }
+      
+    });
+  </script>
+
+</dom-module>

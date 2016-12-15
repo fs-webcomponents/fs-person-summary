@@ -21,7 +21,8 @@
     "polymer": "Polymer/polymer#^1.0.0",
     "fs-client": "fs-webcomponents/fs-client#^2.0.0",
     "fs-person-portrait": "fs-webcomponents/fs-person-portrait#^2.0.0",
-    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#^2.0.0"
+    "fs-person-behavior": "fs-webcomponents/fs-person-behavior#^2.0.0",
+    "paper-card": "PolymerElements/paper-card#^1.1.4"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
