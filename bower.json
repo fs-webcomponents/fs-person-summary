@@ -1,9 +1,6 @@
 {
   "name": "fs-person-summary",
-  "authors": [
-    "Justin York"
-  ],
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A FamilySearch person summary.",
   "keywords": [
     "web-component",
@@ -19,11 +16,11 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#v4",
-    "fs-person-mixin": "fs-webcomponents/fs-person-mixin"
+    "fs-person-portrait": "fs-webcomponents/fs-person-portrait#^4.0.0",
+    "fs-person-mixin": "fs-webcomponents/fs-person-mixin#^4.0.0"
   },
   "devDependencies": {
-    "fs-signin": "fs-webcomponents/fs-signin#v4",
+    "fs-signin": "fs-webcomponents/fs-signin#^4.0.0",
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
     "paper-card": "PolymerElements/paper-card#^2.0.0"
   }
